@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../App.css';
 
 const CreateBook = () => {
@@ -14,7 +16,6 @@ const CreateBook = () => {
     genre: "",
     image_path: "",
   });
-  const [error, setError] = useState(null);
 
   const onChange = (e) => {
     setBook({ ...book, [e.target.name]: e.target.value });
@@ -41,21 +42,44 @@ const CreateBook = () => {
           published_date: "",
           publisher: "",
           genre: "",
-          image_path: "", // Reset the image path as well
+          image_path: "",
         });
-        navigate("/");
+        toast.success('Book created successfully!', {
+          position: "top-right",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        setTimeout(() => navigate("/"), 2500);
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Error creating book");
+        toast.error(errorData.message || "Error creating book", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
     } catch (error) {
       console.error("Error in CreateBook:", error);
-      setError("Error creating book");
+      toast.error("Error creating book", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
   return (
     <div className="CreateBook">
+      <ToastContainer />
       <div className="container">
         <div className="row">
           <div className="col-md-8 m-auto mt-2">
@@ -71,7 +95,6 @@ const CreateBook = () => {
 
         <div className="col-md-8 m-auto">
           <form noValidate onSubmit={onSubmit} className="form-container bg-white p-4 rounded shadow">
-            {error && <div className="alert alert-danger text-center">{error}</div>}
             <div className="form-group">
               <label htmlFor="title" className="text-dark">Title</label>
               <input type="text" placeholder="Enter book title" name="title" className="form-control" value={book.title} onChange={onChange} required />

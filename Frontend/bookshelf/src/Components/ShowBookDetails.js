@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../App.css';
 
 function ShowBookDetails() {
@@ -25,6 +27,14 @@ function ShowBookDetails() {
         console.error('Error from ShowBookDetails:', error);
         setError('Failed to load book details.');
         setLoading(false);
+        toast.error('Failed to load book details.', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       });
   }, [id]);
 
@@ -35,9 +45,27 @@ function ShowBookDetails() {
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
-          navigate('/');
+          toast.success('Book deleted successfully!', {
+            position: "top-right",
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+          setTimeout(() => navigate('/'), 2500);
         })
-        .catch(error => console.error('Error from ShowBookDetails_deleteClick:', error));
+        .catch(error => {
+          console.error('Error from ShowBookDetails_deleteClick:', error);
+          toast.error('Failed to delete the book.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        });
     }
   };
 
@@ -87,6 +115,7 @@ function ShowBookDetails() {
 
   return (
     <div className='ShowBookDetails'>
+      <ToastContainer />
       <div className='container'>
         <div className='row'>
           <div className='col-md-10 m-auto'>
@@ -102,17 +131,12 @@ function ShowBookDetails() {
             <hr /><br />
           </div>
 
-          {/* Book Image at the Top */}
           <div className='col-md-6 m-auto text-center'>
-            <img 
-              src={book.image_path} 
-              className='book-image img-fluid mb-4' 
-              alt={`${book.title} cover`} 
-              style={{ maxHeight: '400px' }} 
-            />
+            {loading ? null : (
+              <img src={book.image_path} className='animated-book-image animated-book-image-loaded img-fluid mb-4' alt={`${book.title} cover`} style={{ maxHeight: '400px' }}/>
+            )}
           </div>
 
-          {/* Book Details Table */}
           <div className='col-md-8 m-auto'>
             {loading ? (
               <div className='text-center'>
@@ -131,12 +155,7 @@ function ShowBookDetails() {
             <div className='col-md-8 m-auto mt-3'>
               <div className="row text-center">
                 <div className='col-6'>
-                  <button 
-                    type='button' 
-                    className='btn btn-outline-danger btn-lg btn-block' 
-                    onClick={() => onDeleteClick(book._id)}>
-                    Delete Book
-                  </button>
+                  <button type='button' className='btn btn-outline-danger btn-lg btn-block' onClick={() => onDeleteClick(book._id)}> Delete Book</button>
                 </div>
                 <div className='col-6'>
                   <Link to={`/edit-book/${book._id}`} className='btn btn-outline-info btn-lg btn-block'>

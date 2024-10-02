@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Bookschema = new mongoose.Schema({
     title : {type : String, required : true},
-    isbn : {type : String, required : true},
+    isbn : {type : Number, required : true},
     author : {type : String, required : true},
     description : String,
     published_date : Date,

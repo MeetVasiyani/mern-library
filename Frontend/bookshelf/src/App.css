@@ -239,3 +239,28 @@ h1.display-4.text-warning {
 .input-group input {
   border-radius: 4px 0 0 4px;
 }
+
+/* Unique class for book image hover animation */
+.animated-book-image {
+  transition: transform 0.3s ease-in-out;
+}
+
+.animated-book-image:hover {
+  transform: scale(1.1);
+}
+
+/* Unique animation class for the book image load effect */
+@keyframes bookFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animated-book-image-loaded {
+  animation: bookFadeIn 1s ease-in-out;
+}

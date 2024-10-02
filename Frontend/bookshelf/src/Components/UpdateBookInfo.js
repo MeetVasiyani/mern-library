@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../App.css';
 
 function UpdateBookInfo() {
@@ -47,6 +49,14 @@ function UpdateBookInfo() {
       .catch((err) => {
         setError('Error fetching book details.');
         setLoading(false);
+        toast.error('Failed to fetch book details.', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       });
   }, [id]);
 
@@ -82,10 +92,26 @@ function UpdateBookInfo() {
         return response.json();
       })
       .then(() => {
-        navigate(`/show-book/${id}`);
+        toast.success('Book updated successfully!', {
+          position: "top-right",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        setTimeout(() => navigate(`/show-book/${id}`), 2500);
       })
       .catch((err) => {
         setError('Error updating book details.');
+        toast.error('Failed to update book details.', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       });
   };
 
@@ -99,6 +125,7 @@ function UpdateBookInfo() {
 
   return (
     <div className="UpdateBookInfo">
+      <ToastContainer />
       <div className="container">
         <div className="row">
           <div className="col-md-8 m-auto mt-2">
@@ -163,14 +190,7 @@ function UpdateBookInfo() {
             
             <div className="form-group">
               <label htmlFor="image_path" className="text-dark">Image URL</label>
-              <input
-                type="text"
-                placeholder="Enter Image URL"
-                name="image_path"
-                className="form-control"
-                value={book.image_path}
-                onChange={onChange}
-              />
+              <input type="text" placeholder="Enter Image URL" name="image_path" className="form-control" value={book.image_path} onChange={onChange}/>
             </div>
             <br />
 
