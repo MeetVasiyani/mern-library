@@ -133,7 +133,10 @@ function ShowBookDetails() {
 
           <div className='col-md-6 m-auto text-center'>
             {loading ? null : (
-              <img src={book.image_path} className='animated-book-image animated-book-image-loaded img-fluid mb-4' alt={`${book.title} cover`} style={{ maxHeight: '400px' }}/>
+              <img src={book.image_path} className='animated-book-image ani
+              
+              
+              mated-book-image-loaded img-fluid mb-4' alt={`${book.title} cover`} style={{ maxHeight: '400px' }}/>
             )}
           </div>
 

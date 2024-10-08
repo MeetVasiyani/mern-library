@@ -14,7 +14,7 @@ const BookCard = ({ book }) => {
           src={book.image_path || 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d'} 
           alt={`Cover of the book: ${book.title}`} 
           height={200} 
-          className='book-image'
+          className='book-image animated-book-image' // Added 'animated-book-image' class
         />
         <div className='desc'>
           <h2 className='book-title'>{book.title}</h2>

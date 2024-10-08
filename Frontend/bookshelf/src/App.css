@@ -22,6 +22,7 @@
   align-items: center; /* Center children horizontally */
   padding: 20px; /* Add padding inside the card */
   max-width: 300px; /* Ensure cards are uniformly sized */
+  overflow: hidden; /* Add this to contain the image */
 }
 
 .card-container:hover {
@@ -35,6 +36,7 @@
   max-width: 100%; /* Responsive sizing */
   height: auto; /* Maintain aspect ratio */
   border-bottom: 1px solid #ddd;
+  transition: transform 0.3s ease-in-out; /* Add transition here as well */
 }
 
 /* Description Styling */
@@ -240,13 +242,15 @@ h1.display-4.text-warning {
   border-radius: 4px 0 0 4px;
 }
 
-/* Unique class for book image hover animation */
+/* Updated Book Image Animation */
 .animated-book-image {
   transition: transform 0.3s ease-in-out;
+  max-width: 100%; /* Ensure the image doesn't exceed the container width */
+  height: auto; /* Maintain aspect ratio */
 }
 
 .animated-book-image:hover {
-  transform: scale(1.1);
+  transform: scale(1.05); /* Reduce the scale slightly */
 }
 
 /* Unique animation class for the book image load effect */
